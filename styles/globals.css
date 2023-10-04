@@ -1,0 +1,85 @@
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  @apply font-sans;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Clash Display", sans-serif;
+}
+
+h1 {
+  @apply text-7xl font-bold;
+}
+
+h2 {
+  @apply text-4xl font-bold;
+}
+
+h3 {
+  @apply text-3xl font-bold;
+}
+
+h4 {
+  @apply text-2xl font-bold;
+}
+
+h5 {
+  @apply text-xl font-bold;
+}
+
+h6 {
+  @apply text-lg;
+}
+
+p {
+  @apply font-normal leading-[20%];
+}
+
+ul {
+  @apply list-none;
+}
+
+.keys {
+  @apply mt-6 flex flex-col gap-4;
+}
+
+.keys > li {
+  @apply text-sm;
+}
+
+.keys > li > span {
+  @apply text-base font-bold text-[#FF26B9];
+}
+
+.sponsors div {
+  @apply h-[150px] w-[200px] flex items-center px-6;
+}
+
+.sponsors div:nth-child(1),
+.sponsors div:nth-child(2),
+.sponsors div:nth-child(3) {
+  @apply border-b-2 border-secondary-purple;
+}
+
+.sponsors div:nth-child(2),
+.sponsors div:nth-child(5) {
+  @apply border-x-2 border-secondary-purple outline-none;
+}
