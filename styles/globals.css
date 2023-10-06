@@ -7,6 +7,7 @@
 * {
   padding: 0;
   margin: 0;
+  outline: none;
   box-sizing: border-box;
 }
 
@@ -82,4 +83,15 @@ ul {
 .sponsors div:nth-child(2),
 .sponsors div:nth-child(5) {
   @apply border-x-2 border-secondary-purple outline-none;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  @apply h-[40px] w-[40px] rounded-[50%] border-l-4 border-secondary-purple;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

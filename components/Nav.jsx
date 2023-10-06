@@ -10,9 +10,11 @@ const Nav = () => {
     <section>
       <div className="md:px-[8%] px-[4%] py-[2%] bg-dark-purple text-white">
         <div className="flex flex-row items-center justify-between">
-          <h2>
-            get<span className="text-secondary-purple">linked</span>
-          </h2>
+          <Link href="/">
+            <h2>
+              get<span className="text-secondary-purple">linked</span>
+            </h2>
+          </Link>
           <div className="flex flex-row items-center gap-16">
             <ul className="flex flex-row items-center gap-8">
               <li>
@@ -38,7 +40,22 @@ const Nav = () => {
               </li>
             </ul>
             <Link href="/register">
-              <Button text="Register" />
+              <div
+                className={
+                  currentRoute === "/register"
+                    ? "rounded-sm bg-gradient-to-r from-[#9A39FF] to-[#FF29B9] p-[2px]"
+                    : ""
+                }
+              >
+                <Button
+                  text="Register"
+                  className={
+                    currentRoute === "/register"
+                      ? "bg-dark-purple py-4 px-12"
+                      : "bg-gradient-to-r from-primary-purple to-primary-pink rounded-md py-4 px-12 text-base hover:bg-gradient-to-l hover:opacity-80"
+                  }
+                />
+              </div>
             </Link>
           </div>
         </div>
