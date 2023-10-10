@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Container from "@components/Container";
 import { BsInstagram } from "react-icons/bs";
@@ -53,25 +54,51 @@ const Contact = () => {
               <br />
               Let us know about it!
             </h5>
-            <form className="flex flex-col gap-6 mt-4">
-              <input
-                type="text"
-                placeholder="First Name"
-                className="border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white"
-              />
-              <input
-                type="email"
-                placeholder="Mail"
-                className="border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white"
-              />
-              <textarea
-                name="Message"
-                id="Message"
-                cols="10"
-                rows="5"
-                placeholder="Message"
-                className="border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white resize-none"
-              ></textarea>
+            <form className="flex flex-col gap-8 mt-6">
+              <div className="relative">
+                <input
+                  type="text"
+                  id="FirstName"
+                  placeholder=""
+                  className="w-full border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white"
+                />
+                <label
+                  htmlFor="FirstName"
+                  className="absolute top-1 left-4 border border-transparent bg-none p-1"
+                >
+                  First Name
+                </label>
+              </div>
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder=""
+                  id="Email"
+                  className="border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white w-full"
+                />
+                <label
+                  htmlFor="Email"
+                  className="absolute top-1 left-4 border border-transparent bg-none p-1"
+                >
+                  Mail
+                </label>
+              </div>
+              <div className="relative">
+                <textarea
+                  name="Message"
+                  id="Message"
+                  cols="10"
+                  rows="5"
+                  placeholder=""
+                  className="w-full border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white resize-none"
+                ></textarea>
+                <label
+                  htmlFor="Message"
+                  className="absolute top-1 left-4 border border-transparent bg-none p-1"
+                >
+                  Message
+                </label>
+              </div>
               <div className="text-center">
                 <Button text="Submit" />
               </div>

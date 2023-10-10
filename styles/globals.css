@@ -27,15 +27,15 @@ h6 {
 }
 
 h1 {
-  @apply text-7xl font-bold;
+  @apply md:text-7xl text-4xl font-bold;
 }
 
 h2 {
-  @apply text-4xl font-bold;
+  @apply md:text-4xl text-3xl  font-bold;
 }
 
 h3 {
-  @apply text-3xl font-bold;
+  @apply md:text-3xl text-2xl font-bold;
 }
 
 h4 {
@@ -47,7 +47,7 @@ h5 {
 }
 
 h6 {
-  @apply text-lg;
+  @apply md:text-lg text-sm font-bold;
 }
 
 p {
@@ -58,8 +58,13 @@ ul {
   @apply list-none;
 }
 
+textarea:focus ~ label,
+input:focus ~ label {
+  @apply bg-dark-purple text-sm -top-5 rounded-md;
+}
+
 .keys {
-  @apply mt-6 flex flex-col gap-4;
+  @apply mt-6 flex flex-col gap-4 md:text-left text-center;
 }
 
 .keys > li {
@@ -68,21 +73,6 @@ ul {
 
 .keys > li > span {
   @apply text-base font-bold text-[#FF26B9];
-}
-
-.sponsors div {
-  @apply h-[150px] w-[200px] flex items-center px-6;
-}
-
-.sponsors div:nth-child(1),
-.sponsors div:nth-child(2),
-.sponsors div:nth-child(3) {
-  @apply border-b-2 border-secondary-purple;
-}
-
-.sponsors div:nth-child(2),
-.sponsors div:nth-child(5) {
-  @apply border-x-2 border-secondary-purple outline-none;
 }
 
 .spinner {

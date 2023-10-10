@@ -8,15 +8,15 @@ const Nav = () => {
   const currentRoute = usePathname();
   return (
     <section>
-      <div className="md:px-[8%] px-[4%] py-[2%] bg-dark-purple text-white">
+      <div className="relative lg:px-[8%] px-[4%] py-[2%] bg-dark-purple text-white">
         <div className="flex flex-row items-center justify-between">
           <Link href="/">
             <h2>
               get<span className="text-secondary-purple">linked</span>
             </h2>
           </Link>
-          <div className="flex flex-row items-center gap-16">
-            <ul className="flex flex-row items-center gap-8">
+          <div className="flex md:flex-row flex-col md:items-center items-start gap-16">
+            <ul className="flex md:flex-row flex-col md:items-center items-start gap-8">
               <li>
                 <Link href="/#timeline">Timeline</Link>
               </li>
