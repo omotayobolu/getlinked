@@ -47,14 +47,15 @@ const Nav = () => {
                     : ""
                 }
               >
-                <Button
-                  text="Register"
+                <button
                   className={
                     currentRoute === "/register"
                       ? "bg-dark-purple py-4 px-12"
                       : "bg-gradient-to-r from-primary-purple to-primary-pink rounded-md py-4 px-12 text-base hover:bg-gradient-to-l hover:opacity-80"
                   }
-                />
+                >
+                  Register
+                </button>
               </div>
             </Link>
           </div>

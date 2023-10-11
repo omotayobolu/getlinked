@@ -11,6 +11,7 @@ const montserrat = Montserrat({
 export const metadata = {
   title: "getlinked",
   description: "getlinked Tech Hackathon 1.0",
+  keywords: "hackathon",
 };
 
 const RootLayout = ({ children }) => {

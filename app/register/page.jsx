@@ -4,7 +4,17 @@ import GraphicDesigner from "@public/assets/3d-graphic-designer.png";
 import Input from "@components/Input";
 import Button from "@components/Button";
 
-const Register = () => {
+async function getCategories() {
+  const response = await fetch(
+    "https://backend.getlinked.ai/hackathon/categories-list"
+  );
+  const categories = await response.json();
+  return categories;
+}
+
+const Register = async () => {
+  const categories = await getCategories();
+
   return (
     <Container>
       <div className="w-full flex md:flex-row flex-col items-center">
@@ -60,7 +70,11 @@ const Register = () => {
                       className="bg-[rgba(255,255,255,3%)] border border-white rounded py-2 px-4 text-sm"
                     >
                       <option value="">Select your categories</option>
-                      <option value="xxx">xxx</option>
+                      {categories.map((category) => (
+                        <option key={category.id} value={category.name}>
+                          {category.name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className="flex flex-col gap-2 w-full">
@@ -73,7 +87,8 @@ const Register = () => {
                       className="bg-[rgba(255,255,255,3%)] border border-white rounded py-2 px-4 text-sm"
                     >
                       <option value="">Select</option>
-                      <option value="xxx">xxx</option>
+                      <option value="4">4</option>
+                      <option value="6">6</option>
                     </select>
                   </div>
                 </div>
