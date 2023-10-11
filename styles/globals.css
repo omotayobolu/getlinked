@@ -58,6 +58,10 @@ ul {
   @apply list-none;
 }
 
+select option {
+  @apply text-black;
+}
+
 textarea:focus ~ label,
 input:focus ~ label {
   @apply bg-dark-purple text-sm -top-5 rounded-md;

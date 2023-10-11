@@ -15,8 +15,8 @@ const Nav = () => {
               get<span className="text-secondary-purple">linked</span>
             </h2>
           </Link>
-          <div className="flex md:flex-row flex-col md:items-center items-start gap-16">
-            <ul className="flex md:flex-row flex-col md:items-center items-start gap-8">
+          <div className="flex lg:flex-row flex-col lg:items-center items-start gap-16">
+            <ul className="flex lg:flex-row flex-col lg:items-center items-start gap-8">
               <li>
                 <Link href="/#timeline">Timeline</Link>
               </li>
@@ -43,7 +43,7 @@ const Nav = () => {
               <div
                 className={
                   currentRoute === "/register"
-                    ? "rounded-sm bg-gradient-to-r from-[#9A39FF] to-[#FF29B9] p-[2px]"
+                    ? "rounded-sm bg-gradient-to-b from-[#9A39FF] to-[#FF29B9] p-[2px]"
                     : ""
                 }
               >
