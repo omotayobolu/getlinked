@@ -1,9 +1,9 @@
 import React from "react";
 
-const Button = ({ text, onClick, className }) => {
+const Button = ({ text, onClick, className, type }) => {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`
        ${className} bg-gradient-to-r from-primary-purple to-primary-pink rounded-md py-4 px-12 text-base hover:bg-gradient-to-l hover:opacity-80`}
