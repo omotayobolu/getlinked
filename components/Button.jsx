@@ -6,7 +6,7 @@ const Button = ({ text, onClick, className, type }) => {
       type={type}
       onClick={onClick}
       className={`
-       ${className} bg-gradient-to-r from-primary-purple to-primary-pink rounded-md py-4 px-12 text-base hover:bg-gradient-to-l hover:opacity-80`}
+       ${className} bg-gradient-to-r to-primary-purple from-primary-pink rounded-md py-4 px-12 text-base hover:bg-gradient-to-l hover:opacity-80`}
     >
       {text}
     </button>

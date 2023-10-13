@@ -6,13 +6,17 @@ import "react-toastify/dist/ReactToastify.css";
 import Container from "@components/Container";
 import Image from "next/image";
 import GraphicDesigner from "@public/assets/3d-graphic-designer.png";
+import Congratulation from "@public/assets/congratulation.png";
 import Input from "@components/Input";
 import Button from "@components/Button";
+import Link from "next/link";
 
 const Register = () => {
   const [category, setCategory] = useState([]);
+  const [loadingCategory, setLoadingCategory] = useState(false);
   const [register, setRegister] = useState("Register Now");
   const [errorMessage, setErrorMessage] = useState(null);
+  const [success, setSuccess] = useState(false);
   const [teamData, setTeamData] = useState({
     email: "",
     teamName: "",
@@ -46,7 +50,7 @@ const Register = () => {
         privacy_poclicy_accepted: teamData.agreement,
         category: teamData.category,
       };
-      console.log("user:", userDetails);
+      // console.log("user:", userDetails);
       setRegister("Loading...");
       const response = await fetch(
         "https://backend.getlinked.ai/hackathon/registration",
@@ -58,14 +62,16 @@ const Register = () => {
           body: JSON.stringify(userDetails),
         }
       );
-      console.log(response);
+      // console.log(response);
 
       if (response.ok) {
+        setErrorMessage(null);
         toast.success("Registration successful", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setSuccess(true);
       } else {
-        console.error("wahala dey");
+        // console.error("wahala dey");
         setErrorMessage(
           "An error occured, check your credentials and try again."
         );
@@ -74,7 +80,13 @@ const Register = () => {
         });
       }
     } catch (err) {
-      console.log(err.response.data.message);
+      setErrorMessage(
+        "An error occured, check your network connection and try again."
+      );
+      toast.error(errorMessage, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      // console.log(err.message);
     } finally {
       setRegister("Register Now");
     }
@@ -83,11 +95,13 @@ const Register = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
+        setLoadingCategory(true);
         const response = await fetch(
           "https://backend.getlinked.ai/hackathon/categories-list"
         );
         const categories = await response.json();
         setCategory(categories);
+        setLoadingCategory(false);
       } catch (err) {
         console.log(err.message);
       }
@@ -172,7 +186,11 @@ const Register = () => {
                       onChange={handleInputChange}
                       className="bg-[rgba(255,255,255,3%)] border border-white rounded py-2 px-4 text-sm"
                     >
-                      <option value={0}>Select your categories</option>
+                      <option value={0}>
+                        {loadingCategory
+                          ? "Loading Categories.."
+                          : "Select your categories"}
+                      </option>
                       {category.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.name}
@@ -221,6 +239,23 @@ const Register = () => {
           </div>
         </div>
       </div>
+      {success && (
+        <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-dark-purple w-full h-full bg-opacity-90 text-center ">
+          <div className="flex justify-center">
+            <div className="border border-secondary-purple rounded-md p-10 flex flex-col gap-6 md:w-[50%] w-full">
+              <div className="flex justify-center">
+                <Image src={Congratulation} alt="Congratulations image" />
+              </div>
+              <h3 className="font-sans font-medium">
+                Congratulations, you have successfully registered!
+              </h3>
+              <Link href="/">
+                <Button text="Back" className="w-full" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </Container>
   );
 };
