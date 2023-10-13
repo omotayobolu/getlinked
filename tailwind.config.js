@@ -15,6 +15,7 @@ module.exports = {
         "primary-purple": "#903AFF",
         "secondary-purple": "#D434FE",
         "dark-purple": "#150E28",
+        error: "#FF708D",
       },
       listStyleImage: {
         checkmark: 'url("/assets/list terms.png")',

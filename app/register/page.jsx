@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Container from "@components/Container";
 import Image from "next/image";
 import GraphicDesigner from "@public/assets/3d-graphic-designer.png";
@@ -9,6 +11,8 @@ import Button from "@components/Button";
 
 const Register = () => {
   const [category, setCategory] = useState([]);
+  const [register, setRegister] = useState("Register Now");
+  const [errorMessage, setErrorMessage] = useState(null);
   const [teamData, setTeamData] = useState({
     email: "",
     teamName: "",
@@ -43,6 +47,7 @@ const Register = () => {
         category: teamData.category,
       };
       console.log("user:", userDetails);
+      setRegister("Loading...");
       const response = await fetch(
         "https://backend.getlinked.ai/hackathon/registration",
         {
@@ -56,12 +61,22 @@ const Register = () => {
       console.log(response);
 
       if (response.ok) {
-        console.log("data sent");
+        toast.success("Registration successful", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       } else {
         console.error("wahala dey");
+        setErrorMessage(
+          "An error occured, check your credentials and try again."
+        );
+        toast.error(errorMessage, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       }
     } catch (err) {
-      console.log(err.message);
+      console.log(err.response.data.message);
+    } finally {
+      setRegister("Register Now");
     }
   };
 
@@ -87,6 +102,7 @@ const Register = () => {
           <Image src={GraphicDesigner} alt="3d graphic designer" priority />
         </div>
         <div className="lg:w-[50%] w-full md:my-0 my-6">
+          <ToastContainer />
           <div className="w-full flex flex-col md:gap-6 gap-4 md:bg-[rgba(255,255,255,3%)] md:p-12 rounded-xl">
             <h3 className="text-secondary-purple">Register</h3>
             <p className="md:text-2xl text-lg uppercase">Create Your Account</p>
@@ -95,6 +111,11 @@ const Register = () => {
               className="flex flex-col md:gap-6 gap-4"
             >
               <div className="flex flex-col gap-8">
+                {errorMessage && (
+                  <p className="text-base font-medium text-error">
+                    {errorMessage}
+                  </p>
+                )}
                 <div className="flex md:flex-row flex-col items-center gap-6">
                   <Input
                     id="Team's Name"
@@ -194,7 +215,7 @@ const Register = () => {
                     policy
                   </label>
                 </div>
-                <Button type="submit" text="Register Now" />
+                <Button type="submit" text={register} />
               </div>
             </form>
           </div>
