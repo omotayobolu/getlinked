@@ -1,14 +1,18 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Button from "@components/Button";
 import Container from "@components/Container";
 import { BsInstagram } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import { BiLogoFacebook } from "react-icons/bi";
 import { FaLinkedinIn } from "react-icons/fa";
-import Button from "@components/Button";
 
 const Contact = () => {
+  const [submit, setSubmit] = useState("Submit");
+  const [errorMessage, setErrorMessage] = useState(null);
   const [contactData, setContactData] = useState({
     firstName: "",
     email: "",
@@ -32,6 +36,7 @@ const Contact = () => {
         email: contactData.email,
         message: contactData.message,
       };
+      setSubmit("Submitting...");
       const response = await fetch(
         "https://backend.getlinked.ai/hackathon/contact-form",
         {
@@ -43,12 +48,32 @@ const Contact = () => {
         }
       );
       if (response.ok) {
-        console.log("successful");
+        // console.log("successful");
+        toast.success("Message sent successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        // reset input to empty
+        setContactData({
+          firstName: "",
+          email: "",
+          message: "",
+        });
+        setErrorMessage(null);
       } else {
-        console.error("not working");
+        // console.error("not working");
+        toast.error("Error sending message!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setErrorMessage("Error sending message!");
       }
     } catch (error) {
-      console.error(error.message);
+      // console.error(error.message);
+      toast.error("Error sending message, check your network connection!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setErrorMessage("Error sending message, check your network connection!");
+    } finally {
+      setSubmit("Submit");
     }
   };
   return (
@@ -91,6 +116,7 @@ const Contact = () => {
           </div>
         </div>
         <div className="relative md:w-[50%] w-full">
+          <ToastContainer />
           <div className="relative bg-[rgba(255,255,255,3%)] rounded-xl p-12 w-full">
             <h5 className="text-secondary-purple font-semibold">
               Questions or need assistance?
@@ -98,6 +124,11 @@ const Contact = () => {
               Let us know about it!
             </h5>
             <form className="flex flex-col gap-8 mt-6" onSubmit={submitContact}>
+              {errorMessage && (
+                <p className="text-base font-medium text-error">
+                  {errorMessage}
+                </p>
+              )}
               <div className="relative">
                 <input
                   type="text"
@@ -106,7 +137,9 @@ const Contact = () => {
                   placeholder=""
                   value={contactData.firstName}
                   onChange={handleInputChange}
-                  className="w-full border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white"
+                  className={`w-full border ${
+                    errorMessage ? "border-error" : "border-white"
+                  } text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white`}
                 />
                 <label
                   htmlFor="FirstName"
@@ -123,7 +156,9 @@ const Contact = () => {
                   placeholder=""
                   value={contactData.email}
                   onChange={handleInputChange}
-                  className="border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white w-full"
+                  className={`border ${
+                    errorMessage ? "border-error " : "border-white"
+                  } text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white w-full`}
                 />
                 <label
                   htmlFor="Email"
@@ -141,7 +176,9 @@ const Contact = () => {
                   onChange={handleInputChange}
                   cols="10"
                   rows="5"
-                  className="w-full border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white resize-none"
+                  className={`w-full border ${
+                    errorMessage ? "border-error " : "border-white"
+                  } text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white resize-none`}
                 ></textarea>
                 <label
                   htmlFor="Message"
@@ -151,7 +188,11 @@ const Contact = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button type="submit" text="Submit" />
+                <Button
+                  type="submit"
+                  text={submit}
+                  className={submit === "Submitting..." && "opacity-80"}
+                />
               </div>
             </form>
           </div>
