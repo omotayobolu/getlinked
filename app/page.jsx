@@ -327,7 +327,7 @@ const Home = () => {
           {timeline.map((item) => (
             <div
               key={item.id}
-              className="mt-12 md:flex hidden even:flex-row odd:flex-row-reverse gap-20 justify-center"
+              className="mt-12 md:flex hidden even:flex-row odd:flex-row-reverse lg:gap-20 gap-12 justify-center"
             >
               <div className="w-[400px] flex flex-col justify-end even:ml-auto">
                 <h4 className="text-secondary-purple ">{item.title}</h4>

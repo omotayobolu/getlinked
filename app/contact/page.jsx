@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Container from "@components/Container";
 import { BsInstagram } from "react-icons/bs";
@@ -8,9 +9,51 @@ import { FaLinkedinIn } from "react-icons/fa";
 import Button from "@components/Button";
 
 const Contact = () => {
+  const [contactData, setContactData] = useState({
+    firstName: "",
+    email: "",
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setContactData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const submitContact = async (e) => {
+    e.preventDefault();
+
+    try {
+      let user = {
+        first_name: contactData.firstName,
+        email: contactData.email,
+        message: contactData.message,
+      };
+      const response = await fetch(
+        "https://backend.getlinked.ai/hackathon/contact-form",
+        {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+        }
+      );
+      if (response.ok) {
+        console.log("successful");
+      } else {
+        console.error("not working");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   return (
     <Container>
-      <div className="relative w-full flex flex-row items-center justify-between">
+      <div className="relative w-full flex md:flex-row flex-col-reverse gap-8 items-center justify-between">
         <Image
           src="/assets/star purple.png"
           alt="Star"
@@ -18,7 +61,7 @@ const Contact = () => {
           height={25}
           className="absolute left-6 top-0"
         />
-        <div className="w-[50%] flex flex-col gap-3">
+        <div className="md:w-[50%] w-full flex flex-col gap-3">
           <h3 className="font-semibold text-secondary-purple">Get in touch</h3>
           <p className="text-base">
             Contact <br /> Information
@@ -47,19 +90,22 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div className="relative w-[50%]">
+        <div className="relative md:w-[50%] w-full">
           <div className="relative bg-[rgba(255,255,255,3%)] rounded-xl p-12 w-full">
             <h5 className="text-secondary-purple font-semibold">
               Questions or need assistance?
               <br />
               Let us know about it!
             </h5>
-            <form className="flex flex-col gap-8 mt-6">
+            <form className="flex flex-col gap-8 mt-6" onSubmit={submitContact}>
               <div className="relative">
                 <input
                   type="text"
                   id="FirstName"
+                  name="firstName"
                   placeholder=""
+                  value={contactData.firstName}
+                  onChange={handleInputChange}
                   className="w-full border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white"
                 />
                 <label
@@ -72,8 +118,11 @@ const Contact = () => {
               <div className="relative">
                 <input
                   type="email"
-                  placeholder=""
                   id="Email"
+                  name="email"
+                  placeholder=""
+                  value={contactData.email}
+                  onChange={handleInputChange}
                   className="border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white w-full"
                 />
                 <label
@@ -85,11 +134,13 @@ const Contact = () => {
               </div>
               <div className="relative">
                 <textarea
-                  name="Message"
                   id="Message"
+                  name="message"
+                  placeholder=""
+                  value={contactData.message}
+                  onChange={handleInputChange}
                   cols="10"
                   rows="5"
-                  placeholder=""
                   className="w-full border border-white text-white bg-[rgba(255,255,255,3%)] rounded-[4px] px-4 py-2 placeholder:text-white resize-none"
                 ></textarea>
                 <label
@@ -100,7 +151,7 @@ const Contact = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button text="Submit" />
+                <Button type="submit" text="Submit" />
               </div>
             </form>
           </div>

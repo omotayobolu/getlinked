@@ -63,6 +63,8 @@ select option {
 }
 
 textarea:focus ~ label,
+textarea:not(:placeholder-shown) ~ label,
+input:not(:placeholder-shown) ~ label,
 input:focus ~ label {
   @apply bg-dark-purple text-sm -top-5 rounded-md;
 }
