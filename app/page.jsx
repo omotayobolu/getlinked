@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,7 +28,49 @@ import Wisper from "@public/assets/wisper logo.svg";
 import Paybox from "@public/assets/Paybox.svg";
 import VizualPlus from "@public/assets/Vizual Plus.svg";
 
+// import useCountdown from "@hooks/useCountdown";
+
 const Home = () => {
+  // const { timeLeft } = useCountdown();
+  const [hours, setHours] = useState("");
+  const [minutes, setMinutes] = useState("");
+  const [seconds, setSeconds] = useState("");
+
+  const timmerFunc = () => {
+    const today = new Date().getTime();
+
+    let tempDate = new Date();
+    let tempYear = tempDate.getFullYear();
+    let tempMonth = tempDate.getMonth();
+    let tempDay = tempDate.getDate();
+
+    const futureDate = new Date(tempYear, tempMonth, tempDay + 10, 11, 30, 0);
+    const futureTime = futureDate.getTime();
+
+    const t = futureTime - today;
+    // 1s = 1000ms
+    // 1m = 60s
+    // 1hr = 60m
+    // 1d = 24hr
+    // values in miliseconds
+    const oneDay = 24 * 60 * 60 * 1000;
+    const oneHour = 60 * 60 * 1000;
+    const oneMinute = 60 * 1000;
+
+    // calculate all values
+    let days = t / oneDay;
+    days = Math.floor(days);
+    let hours = Math.floor((t % oneDay) / oneHour);
+    let minutes = Math.floor((t % oneHour) / oneMinute);
+    let seconds = Math.floor((t % oneMinute) / 1000);
+
+    setHours(hours);
+    setMinutes(minutes);
+    setSeconds(seconds);
+  };
+
+  setInterval(timmerFunc, 1000);
+
   return (
     <section id="home">
       <Container>
@@ -83,16 +127,27 @@ const Home = () => {
               height={35}
               className="absolute right-20"
             />
-            <div className="flex flex-row items-center md:justify-start justify-center gap-4 mt-8">
-              <div className="text-6xl">
-                00<span className="uppercase text-base">h</span>
-              </div>
-              <div className="text-6xl">
-                00<span className="uppercase text-base">m</span>
-              </div>
-              <div className="text-6xl">
-                00<span className="uppercase text-base">s</span>
-              </div>
+            <div>
+              {hours === 0 && minutes === 0 && seconds === 0 ? (
+                <div className="my-8 text-center text-2xl">
+                  getLinked Hackathon is on!
+                </div>
+              ) : (
+                <div className="flex flex-row items-center md:justify-start justify-center gap-4 mt-8">
+                  <div className="md:text-6xl text-4xl">
+                    {hours <= 9 ? "0" + hours : hours}
+                    <span className="uppercase md:text-base text-sm">h</span>
+                  </div>
+                  <div className="md:text-6xl text-4xl">
+                    {minutes <= 9 ? "0" + minutes : minutes}
+                    <span className="uppercase md:text-base text-sm">m</span>
+                  </div>
+                  <div className="md:text-6xl text-4xl">
+                    {seconds <= 9 ? "0" + seconds : seconds}
+                    <span className="uppercase md:text-base text-sm">s</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div className="md:w-[50%] w-full h-[400px] mt-6 relative">
